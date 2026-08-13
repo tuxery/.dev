@@ -1,0 +1,36 @@
+{
+  "folders": [
+    {
+      "name": "🐧 .dev",
+      "path": "."
+    },
+    {
+      "name": "📦 .github",
+      "path": "../.github"
+    },
+    {
+      "name": "🔍 app",
+      "path": "../app"
+    }
+  ],
+  "settings": {
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+      {
+        "text": "Generate commit messages in English using Conventional Commits. Keep them concise, imperative, and lowercase after the colon."
+      }
+    ],
+    "cSpell.words": [
+      "appimage",
+      "cloudflare",
+      "flathub",
+      "flatpak",
+      "gitmoji",
+      "levenshtein",
+      "oxlint",
+      "qwik",
+      "snapcraft",
+      "tuxery",
+      "vitest"
+    ]
+  }
+}

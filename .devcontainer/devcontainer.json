@@ -1,0 +1,70 @@
+{
+  "name": "Tuxery",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
+  "workspaceFolder": "/workspaces/.dev",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/.dev,type=bind,consistency=cached",
+  "containerEnv": {
+    "TUXERY_ORG": "tuxery",
+    "TUXERY_REPOS": ".github .dev app",
+    "GH_TOKEN": "${localEnv:GH_TOKEN_FOR_TUXERY}"
+  },
+  "remoteEnv": {
+    "GH_TOKEN": "${localEnv:GH_TOKEN_FOR_TUXERY}"
+  },
+  "features": {
+    // ── Infrastructure ───────────────────────────────────────────────────────
+    // dotfiles-sync deliberately NOT included: it bind-mounts the host's
+    // ~/.gitconfig, ~/.ssh, ~/.gnupg, ~/.npmrc into the container, assuming a
+    // local Docker Desktop/WSL2 host. On GitHub Codespaces there is no such
+    // host — those mount sources resolve to nonexistent root-relative paths
+    // and Docker refuses to create the container at all.
+    "ghcr.io/helpers4/devcontainer/shell-history-per-project:1": {},
+    "ghcr.io/helpers4/devcontainer/git-absorb:1": {},
+    "ghcr.io/helpers4/devcontainer/essential-dev:1": {},
+    "ghcr.io/helpers4/devcontainer/github-dev:1": {},
+    "ghcr.io/helpers4/devcontainer/auto-header:1": {
+      "projectName": "Tuxery",
+      "license": "AGPL-3.0-or-later"
+    },
+    // ── AI ───────────────────────────────────────────────────────────────────
+    "ghcr.io/helpers4/devcontainer/claude-dev:1": {},
+    "ghcr.io/helpers4/devcontainer/peon-ping:1": {
+      "packs": "peasant_fr,peon_fr,warcraft-peon"
+    },
+    // ── JavaScript / Qwik ────────────────────────────────────────────────────
+    "ghcr.io/helpers4/devcontainer/typescript-dev:1": {},
+    "ghcr.io/helpers4/devcontainer/pnpm-store:1": {},
+    "ghcr.io/helpers4/devcontainer/package-auto-install:1": {
+      "autoDiscover": true
+    },
+    "ghcr.io/helpers4/devcontainer/vite-plus:1": {},
+    "ghcr.io/helpers4/devcontainer/playwright-dev:1": {},
+    // ── nub: accelerator that delegates to pnpm, not a replacement for it ──────
+    "ghcr.io/helpers4/devcontainer/nub:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode-remote.remote-containers",
+        "streetsidesoftware.code-spell-checker",
+        "timonwong.shellcheck"
+      ]
+    }
+  },
+  "forwardPorts": [
+    5173, // Vite dev server (Qwik City)
+    8788 // wrangler pages dev (Cloudflare Pages local preview)
+  ],
+  "portsAttributes": {
+    "5173": {
+      "label": "app/web — Qwik dev server",
+      "onAutoForward": "notify"
+    },
+    "8788": {
+      "label": "app/web — wrangler pages dev",
+      "onAutoForward": "silent"
+    }
+  },
+  "remoteUser": "node",
+  "postCreateCommand": "bash .devcontainer/setup-container.sh"
+}
