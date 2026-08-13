@@ -5,7 +5,7 @@
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/.dev,type=bind,consistency=cached",
   "containerEnv": {
     "TUXERY_ORG": "tuxery",
-    "TUXERY_REPOS": ".github .dev app",
+    "TUXERY_REPOS": ".github .dev app catalog",
     "GH_TOKEN": "${localEnv:GH_TOKEN_FOR_TUXERY}"
   },
   "remoteEnv": {

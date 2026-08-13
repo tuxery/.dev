@@ -11,6 +11,10 @@
     {
       "name": "🔍 app",
       "path": "../app"
+    },
+    {
+      "name": "🗃️ catalog",
+      "path": "../catalog"
     }
   ],
   "settings": {

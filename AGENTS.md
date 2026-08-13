@@ -30,7 +30,8 @@ codespace from.
 | --- | --- | --- |
 | `/workspaces/.dev` | `tuxery/.dev` | This repo — orchestration |
 | `/workspaces/.github` | `tuxery/.github` | Org-level GitHub config + reusable workflows |
-| `/workspaces/app` | `tuxery/app` | The product: Qwik UI, matching engine (`packages/matcher`), source connectors (`packages/sources`) |
+| `/workspaces/app` | `tuxery/app` | The product: Qwik UI |
+| `/workspaces/catalog` | `tuxery/catalog` | The data pipeline: source connectors, matching engine, rebuild scripts, persisted store |
 
 ## Devcontainer — available tools
 
