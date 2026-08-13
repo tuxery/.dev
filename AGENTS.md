@@ -40,8 +40,11 @@ The container is self-contained; no host toolchain installation is needed.
 - `nub` — an accelerator (`nub run`, `nubx`) that delegates to pnpm; it is
   **not** a package manager replacement, pnpm remains the source of truth
   for dependencies and workspaces (`pnpm-workspace.yaml` in `app`)
-- Playwright (for `app`'s future e2e tests)
 - `gh` CLI
+
+Not included yet: Playwright (`playwright-dev` feature) — it downloads
+~500MB of browser binaries on every first build; add it back once `app`
+actually has e2e tests to run.
 
 ## Roadmap & planning
 

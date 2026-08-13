@@ -38,7 +38,11 @@
       "autoDiscover": true
     },
     "ghcr.io/helpers4/devcontainer/vite-plus:1": {},
-    "ghcr.io/helpers4/devcontainer/playwright-dev:1": {},
+    // playwright-dev deliberately NOT included yet: it downloads ~500MB of
+    // browser binaries (Chromium/Firefox/WebKit) on every first build, and
+    // there are no e2e tests to run yet. Add it back
+    // (ghcr.io/helpers4/devcontainer/playwright-dev:1) the day e2e tests
+    // are actually written.
     // ── nub: accelerator that delegates to pnpm, not a replacement for it ──────
     "ghcr.io/helpers4/devcontainer/nub:1": {}
   },
