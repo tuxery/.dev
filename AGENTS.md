@@ -42,10 +42,8 @@ The container is self-contained; no host toolchain installation is needed.
   **not** a package manager replacement, pnpm remains the source of truth
   for dependencies and workspaces (`pnpm-workspace.yaml` in `app`)
 - `gh` CLI
-
-Not included yet: Playwright (`playwright-dev` feature) — it downloads
-~500MB of browser binaries on every first build; add it back once `app`
-actually has e2e tests to run.
+- Playwright (for `app`'s e2e tests, and for driving/screenshotting the app
+  during development)
 
 ## Roadmap & planning
 
