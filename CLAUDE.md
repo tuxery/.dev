@@ -14,7 +14,8 @@ local Docker Desktop/WSL2), and open together in `tuxery.code-workspace`:
 | ---- | ---- | ---- |
 | `/workspaces/.dev` | `.dev` | Orchestration — canonical AGENTS.md, devcontainer |
 | `/workspaces/.github` | `.github` | Org-level GitHub config + reusable workflows |
-| `/workspaces/app` | `app` | The product: Qwik UI (`apps/web`), matching engine (`packages/matcher`), source connectors (`packages/sources`) |
+| `/workspaces/app` | `app` | The product: Qwik UI (`apps/web`) |
+| `/workspaces/catalog` | `catalog` | The data pipeline: source connectors, matching engine, rebuild scripts, persisted store |
 
 ## Common commands (run from `app`)
 
@@ -43,9 +44,11 @@ verify `gh` auth, the JS toolchain, and cloned sibling repos are all in the expe
 starting product work — TODOs, backlog ideas, and feature status live there as cards, not in
 local files, per AGENTS.md's Rules section.
 
-**Git workflow**: for `.dev` and `.github` specifically — meta/orchestration repos with no
-shipped product code — push straight to `main`, no PR needed. For `app`, use short-lived feature
-branches and PRs. See AGENTS.md's Git workflow section.
+**Git workflow**: all `tuxery/*` repos push straight to `main`, no branches/PRs — this is a
+solo-dev PoC stage (see each repo's `AGENTS.md` Git workflow section). Adopt feature branches
+once the project actually ships or gains collaborators, not preemptively. Claude may commit once
+authorized for the session, but never pushes — the user reviews and pushes themselves (see
+memory: commit authorization is per-turn, push is never Claude's to do).
 
 ## AI persistence
 
