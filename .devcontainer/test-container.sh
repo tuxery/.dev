@@ -63,6 +63,12 @@ check_cmd pnpm "pnpm"
 check_cmd nub "nub (pnpm accelerator)"
 check_cmd nubx "nubx (npx accelerator)"
 
+if command -v turso >/dev/null 2>&1 || [ -x "$HOME/.turso/turso" ]; then
+  ok "turso CLI — local libSQL dev server for app/catalog"
+else
+  fail "turso CLI — not found (re-run setup-container.sh, or: curl -sSfL https://get.tur.so/install.sh | bash)"
+fi
+
 # ── Critical environment variables ────────────────────────────────────────────
 echo ""
 echo "── Environment ──"
@@ -83,7 +89,7 @@ else
   fail "/workspaces — not writable by $(whoami) (sibling clones will fail with 'Permission denied'; re-run setup-container.sh)"
 fi
 
-for repo in .dev .github app; do
+for repo in .dev .github app catalog; do
   if [ -d "/workspaces/$repo" ]; then
     ok "/workspaces/$repo"
   else
