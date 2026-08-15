@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# /workspaces itself is created by Docker as the parent of the workspaceMount
-# target and comes out root:root — only `.dev` (the bind-mounted
-# workspaceFolder) inherits node ownership from the mount. Every sibling repo
-# below is cloned fresh inside the container, so without this chown `node`
-# gets "Permission denied" creating /workspaces/<repo> for all of them.
-sudo chown node:node /workspaces
+# /workspaces itself, and every named-volume mount point declared in
+# devcontainer.json's "mounts" (the per-repo volumes, shell-history,
+# .vscode-server), come out root:root — only `.dev` (the bind-mounted
+# workspaceFolder) inherits node ownership from the mount. Without this,
+# `node` gets "Permission denied" writing into any of them.
+sudo chown node:node /workspaces /workspaces/app /workspaces/catalog \
+  /workspaces/.github /workspaces/.shell-history /home/node/.vscode-server \
+  2>/dev/null || true
 
 # ── Git commit signing (SSH format) ─────────────────────────────────────────────
 # dotfiles-sync no longer bind-mounts ~/.ssh from the host (see devcontainer.json),
@@ -37,12 +39,15 @@ ORG="${TUXERY_ORG:-tuxery}"
 REPOS="${TUXERY_REPOS:-.github}"
 
 # ── Clone sibling repositories ──────────────────────────────────────────────────
-# This is the *only* way sibling repos are provisioned — there is no bind mount
-# fallback. That's deliberate: bind-mounting `../<repo>` from the host only works
-# for a local Docker Desktop/WSL2 checkout where all repos were pre-cloned side by
-# side; it silently breaks GitHub Codespaces, which only ever checks out the one
-# repo you launched the codespace from. Cloning here, in postCreateCommand, works
-# identically in both environments.
+# Each sibling repo lives on its own named Docker volume (see devcontainer.json's
+# "mounts"), not a host bind mount. That's deliberate: bind-mounting `../<repo>`
+# from the host only works for a local Docker Desktop/WSL2 checkout where all
+# repos were pre-cloned side by side; it silently breaks GitHub Codespaces, which
+# only ever checks out the one repo you launched the codespace from. The volume
+# means a plain "Rebuild Container" keeps whatever was cloned/committed here —
+# this loop only actually clones on a fresh volume (first-ever run, or after a
+# full teardown: `docker volume rm`, deleted Codespace), via the
+# already-available check below.
 echo "Setting up ${ORG} workspace..."
 
 for repo in $REPOS; do

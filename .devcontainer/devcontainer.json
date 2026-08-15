@@ -3,6 +3,27 @@
   "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
   "workspaceFolder": "/workspaces/.dev",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/.dev,type=bind,consistency=cached",
+  // Named volumes for everything a container rebuild used to silently wipe.
+  // Each targets an exact sibling path under /workspaces — never a parent of
+  // `.dev`'s bind mount above, so there's no bind-vs-volume mount ordering to
+  // get right. Survives "Rebuild Container" (same Docker host/Codespace);
+  // only a full teardown (`docker volume rm`, deleted Codespace) resets them
+  // to a fresh clone via setup-container.sh. Fixed volume names assume one
+  // tuxery checkout per host, true for this solo-dev PoC today — revisit if
+  // that changes.
+  "mounts": [
+    "source=tuxery-repo-app,target=/workspaces/app,type=volume",
+    "source=tuxery-repo-catalog,target=/workspaces/catalog,type=volume",
+    "source=tuxery-repo-github,target=/workspaces/.github,type=volume",
+    // shell-history-per-project's whole point is surviving rebuilds — it
+    // wrote into /workspaces/.shell-history without ever persisting the dir
+    // itself, so history was silently lost on every rebuild same as the repos.
+    "source=tuxery-shell-history,target=/workspaces/.shell-history,type=volume",
+    // Keeps VS Code Server's installed extensions + their auth (Claude,
+    // Mistral, etc.) across rebuilds instead of re-installing/re-authing
+    // every time.
+    "source=tuxery-vscode-server,target=/home/node/.vscode-server,type=volume"
+  ],
   "containerEnv": {
     "TUXERY_ORG": "tuxery",
     "TUXERY_REPOS": ".github .dev app catalog",

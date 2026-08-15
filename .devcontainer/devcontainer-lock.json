@@ -61,6 +61,15 @@
       "resolved": "ghcr.io/helpers4/devcontainer/peon-ping@sha256:986fc682e6169535f27c977e42fcf58e090f17d54782c9af7ba9ba33d5b17a8c",
       "integrity": "sha256:986fc682e6169535f27c977e42fcf58e090f17d54782c9af7ba9ba33d5b17a8c"
     },
+    "ghcr.io/helpers4/devcontainer/playwright-dev:1": {
+      "version": "1.0.1",
+      "resolved": "ghcr.io/helpers4/devcontainer/playwright-dev@sha256:1c78bfee0f1c74f4ad072b0fdd5203b95f615932ed225d1f43904e45dab06336",
+      "integrity": "sha256:1c78bfee0f1c74f4ad072b0fdd5203b95f615932ed225d1f43904e45dab06336",
+      "dependsOn": [
+        "ghcr.io/helpers4/devcontainer/typescript-dev:1",
+        "ghcr.io/devcontainers/features/node:1"
+      ]
+    },
     "ghcr.io/helpers4/devcontainer/pnpm-store:1": {
       "version": "1.0.7",
       "resolved": "ghcr.io/helpers4/devcontainer/pnpm-store@sha256:fca3484bd17e53cc295808598f4a4cd8e8719b86e6cb5893270ce1cdca4f503c",

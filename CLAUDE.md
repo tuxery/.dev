@@ -6,9 +6,16 @@ Full canonical rules (commit format, restrictions, language) live in
 ## Workspace layout
 
 All repos are cloned as siblings at `/workspaces/<name>` by
-`.devcontainer/setup-container.sh`'s `postCreateCommand` (not bind-mounted —
-this is what makes the devcontainer work on GitHub Codespaces as well as
-local Docker Desktop/WSL2), and open together in `tuxery.code-workspace`:
+`.devcontainer/setup-container.sh`'s `postCreateCommand` (not host bind-mounted
+— that's what makes the devcontainer work on GitHub Codespaces as well as
+local Docker Desktop/WSL2), and open together in `tuxery.code-workspace`. Each
+sibling other than `.dev` lives on its own named Docker volume (see
+`devcontainer.json`'s `mounts`), so a plain "Rebuild Container" keeps
+uncommitted/unpushed work; only a full teardown (`docker volume rm`, deleted
+Codespace) resets it to a fresh clone of `origin/main`. `.dev` itself is the
+one repo that's genuinely host bind-mounted, so it's unaffected either way.
+**This is a safety net, not a substitute for pushing** — commit and push
+before anything that could destroy the underlying Docker volumes.
 
 | Path | Repo | Role |
 | ---- | ---- | ---- |
