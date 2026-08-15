@@ -30,13 +30,17 @@ pnpm --filter web dev   # prod-like: builds + wrangler pages dev on :8788, queri
 
 ## Common gotchas
 
-**Local dev = two repos, two terminals**: `catalog`'s `pnpm seed` builds/reuses the dataset and
-writes it into a local libSQL database file (lives at `catalog/.turso-state/`, gitignored, never
-under `app`); `app`'s `pnpm dev` then builds and launches the real Worker (`wrangler pages dev`)
-plus a local `turso dev` server fronting that same file (a Workers isolate can't open a SQLite
-file directly). Run `catalog`'s `pnpm seed` first, or `app`'s server just serves an empty
-catalog. See `catalog/AGENTS.md`'s "Local dev" section for the full handoff mechanics. `app`'s
-`pnpm start` is the fast Vite-only escape hatch (no worker, no data) for pure UI iteration.
+**Local dev = two repos, two terminals, two modes**: `catalog`'s `pnpm seed` builds/reuses the
+dataset and writes it into a local libSQL database file (lives at `catalog/.turso-state/`,
+gitignored, never under `app`); `app`'s `pnpm dev` then builds and launches the real Worker
+(`wrangler pages dev`) plus a local `turso dev` server fronting that same file (a Workers isolate
+can't open a SQLite file directly). Run `catalog`'s `pnpm seed` first, or `app`'s server just
+serves an empty catalog. Pass `--remote` to either side (`pnpm seed --remote` /
+`pnpm dev --remote`) to use the real hosted Turso dev DB instead of the local file/server —
+credentials come from this repo's `.env` (`TURSO_DB_URL`/`TURSO_DB_AUTH_TOKEN`, gitignored, not
+`.env.sample`), shared by both repos rather than duplicated. See `catalog/AGENTS.md`'s "Local
+dev" section for the full handoff mechanics. `app`'s `pnpm start` is the fast Vite-only escape
+hatch (no worker, no data) for pure UI iteration.
 
 **Commit scopes**: always read `scopes.json` at the active repo root before choosing a scope.
 Never invent a scope that isn't listed. Full type→emoji mapping: `/workspaces/.dev/commit-convention.json`.
