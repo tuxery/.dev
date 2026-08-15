@@ -16,7 +16,8 @@ It does **not** contain product runtime code — it is configuration and documen
 tuxery/
 ├── .dev/        # this repo — workspace, devcontainer, AI guidance
 ├── .github/     # org-wide GitHub defaults and reusable workflows
-└── app/         # the product: Qwik UI, matching engine, source connectors
+├── app/         # the product: Qwik UI (queries catalog's dataset via Turso)
+└── catalog/     # the data pipeline: source connectors, matching engine, persisted store
 ```
 
 ## Quick start — GitHub Codespaces (recommended)
