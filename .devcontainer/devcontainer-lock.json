@@ -43,6 +43,11 @@
       "resolved": "ghcr.io/helpers4/devcontainer/helpers4-common@sha256:9f5b93e5f2f4be868b52754b3bb9e3f3ac8a44f13418d61a1fff0d5618a5893b",
       "integrity": "sha256:9f5b93e5f2f4be868b52754b3bb9e3f3ac8a44f13418d61a1fff0d5618a5893b"
     },
+    "ghcr.io/helpers4/devcontainer/mistral-dev:1": {
+      "version": "1.0.3",
+      "resolved": "ghcr.io/helpers4/devcontainer/mistral-dev@sha256:d170fb363ee3e69eaef42c02d9e456d2ec19e16febbca5dbab2d962894322231",
+      "integrity": "sha256:d170fb363ee3e69eaef42c02d9e456d2ec19e16febbca5dbab2d962894322231"
+    },
     "ghcr.io/helpers4/devcontainer/nub:1": {
       "version": "1.0.0",
       "resolved": "ghcr.io/helpers4/devcontainer/nub@sha256:53d7615951cbfaedad969e0cd7947110a9cf50c21192a6f26713b21be631ca9d",
