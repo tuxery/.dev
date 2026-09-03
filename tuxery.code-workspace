@@ -18,6 +18,16 @@
     }
   ],
   "settings": {
+    // app/adapters/*/vite.config.ts files inherit a `test` block from the
+    // base vite.config.ts via extendConfig, so the Vitest extension treats
+    // each one as its own test project. Loaded that way (not through the
+    // `qwik build` CLI, which always runs from the app root), Vite resolves
+    // `root` to the adapter's own directory instead of the app root, so
+    // qwikCity's default routesDir ("src/routes") is looked up under
+    // adapters/<name>/src/routes and the config load throws ENOENT. These
+    // adapter configs never contain test files, so just keep them out of
+    // Vitest's config discovery.
+    "vitest.configSearchPatternExclude": "{**/node_modules/**,**/vendor/**,**/.*/**,**/*.d.ts,**/adapters/**}",
     "github.copilot.chat.commitMessageGeneration.instructions": [
       {
         "text": "Generate commit messages in English using Conventional Commits. Keep them concise, imperative, and lowercase after the colon."
