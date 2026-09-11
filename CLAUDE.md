@@ -53,7 +53,7 @@ handoff mechanics. `app`'s `pnpm start` is the fast Vite-only escape hatch (no w
 for pure UI iteration.
 
 **Commit scopes**: always read `scopes.json` at the active repo root before choosing a scope.
-Never invent a scope that isn't listed. Full type→emoji mapping: `/workspaces/.dev/commit-convention.json`.
+Never invent a scope that isn't listed. Full type→emoji mapping: `/workspaces/tuxery-dev/commit-convention.json`.
 Use `/commit` (Claude Code slash command) to auto-generate a message from staged changes.
 
 **`nub`**: it's an accelerator on top of pnpm (`nub run`, `nubx`), not a package manager
