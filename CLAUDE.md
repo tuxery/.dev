@@ -19,7 +19,7 @@ before anything that could destroy the underlying Docker volumes.
 
 | Path | Repo | Role |
 | ---- | ---- | ---- |
-| `/workspaces/.dev` | `.dev` | Orchestration — canonical AGENTS.md, devcontainer |
+| `/workspaces/tuxery-dev` | `.dev` | Orchestration — canonical AGENTS.md, devcontainer |
 | `/workspaces/.github` | `.github` | Org-level GitHub config + reusable workflows |
 | `/workspaces/app` | `app` | The product: Qwik UI (`apps/web`) |
 | `/workspaces/catalog` | `catalog` | The data pipeline: source connectors, matching engine, rebuild scripts, persisted store |
@@ -66,13 +66,14 @@ verify `gh` auth, the JS toolchain, and cloned sibling repos are all in the expe
 starting product work — TODOs, backlog ideas, and feature status live there as cards, not in
 local files, per AGENTS.md's Rules section.
 
-**Git workflow**: all `tuxery/*` repos push straight to `main`, no branches/PRs — this is a
-solo-dev PoC stage (see each repo's `AGENTS.md` Git workflow section). Adopt feature branches
-once the project actually ships or gains collaborators, not preemptively. Claude may commit once
-authorized for the session, but never pushes — the user reviews and pushes themselves (see
-memory: commit authorization is per-turn, push is never Claude's to do).
+**Git workflow**: branch, commit by subject (Conventional Commits), push only once it looks safe
+(human review of the diff recommended first, ask if unsure), open a PR — never merge, merging is
+always a human decision. See each repo's `AGENTS.md` Git Workflow section for the full policy and
+how a narrow per-task carve-out (e.g. "push straight to `main` for this one fix") can be granted.
 
 ## AI persistence
 
-`~/.claude` is bind-mounted from the host and symlinked at every container start by
-`claude-dev`. Memory, credentials, and settings survive all rebuilds.
+`~/.claude` is bind-mounted from a **per-devcontainer** volume and symlinked at
+every container start by `claude-dev` — isolated to this project, not shared
+with any other org's devcontainer. Memory, credentials, and settings survive
+rebuilds of this same devcontainer.

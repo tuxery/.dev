@@ -8,6 +8,19 @@ This repository is the **shared workspace** for the Tuxery organization.
 doc-comments, commit messages, issues, pull requests, specs, and configuration.
 This rule applies to every sibling repository. No exceptions.
 
+## Code Comments
+
+Write comments for someone reading the code cold — they never see the diff or the previous
+version, only what's in front of them. Describe what the code *is* and *why* it's that way,
+never what changed to get there.
+
+- ❌ `contents: write # was read-only — this job now also commits X`
+- ✅ `contents: write # commits X`
+
+If a comment needs "was"/"before"/"previously"/"now" (or a timestamp: "as of writing", "since
+last month") to make sense, that content belongs in the commit message or PR description, not
+the code — it rots the moment someone reads the file without the diff in front of them.
+
 ## Scope
 
 - VS Code multi-root workspace (`tuxery.code-workspace`)
@@ -28,7 +41,7 @@ codespace from.
 
 | Path | Repo | Purpose |
 | --- | --- | --- |
-| `/workspaces/.dev` | `tuxery/.dev` | This repo — orchestration |
+| `/workspaces/tuxery-dev` | `tuxery/.dev` | This repo — orchestration |
 | `/workspaces/.github` | `tuxery/.github` | Org-level GitHub config + reusable workflows |
 | `/workspaces/app` | `tuxery/app` | The product: Qwik UI |
 | `/workspaces/catalog` | `tuxery/catalog` | The data pipeline: source connectors, matching engine, rebuild scripts, persisted store |
@@ -90,6 +103,7 @@ also read by the `/commit` slash command):
 | `devcontainer` | `.devcontainer/` |
 | `ai` | Agent guidance, prompt files |
 | `docs` | `README.md` and other documentation |
+| `deps` | Dependency bumps |
 | `ci` | `.github/workflows/` (if any) |
 
 **Do not use a scope outside this list.** If a new top-level concern is added,
@@ -100,14 +114,24 @@ docs(docs): 📝 document the local devcontainer quick start
 chore(devcontainer): 🔧 add playwright-dev to devcontainer features
 ```
 
-## Git workflow
+## Git Workflow
 
-Tuxery is an early-stage, mostly-solo project. `.dev` and `.github` are
-meta/orchestration repos with no shipped product code — push straight to
-`main`, no PR needed. For `app`, use short-lived feature branches and PRs;
-adopt a stricter branch-protection / release-train model later if the project
-grows collaborators or ships to production users, rather than pre-building
-that process now.
+Default policy — nuanced, not a hard rule: ask if a specific task calls for
+something different, but absent other instructions:
+
+1. **Branch** — work on a branch, never directly on `main`. Group related
+   changes on the same branch instead of opening a new one per small change.
+2. **Commit** — one commit per subject, Conventional Commits format mandatory
+   (see Commit Messages below).
+3. **Push** — only once it looks safe to do so; a human review of the diff
+   first is recommended for anything non-trivial. Ask if unsure.
+4. **Pull Request** — open one once pushed.
+5. **Merge** — never merge. Merging is always a human decision.
+
+A narrow, temporary carve-out (e.g. "push straight to `main` for this one fix")
+may be granted in conversation for a specific piece of work — treat it as
+scoped to exactly what was said, never as a standing precedent to reuse
+elsewhere or later without asking again.
 
 ## Inheritance
 
