@@ -1,8 +1,8 @@
 {
   "name": "Tuxery",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
-  "workspaceFolder": "/workspaces/tuxery-dev",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/tuxery-dev,type=bind,consistency=cached",
+  "workspaceFolder": "/workspaces/.dev",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/.dev,type=bind,consistency=cached",
   // Named volumes for everything a container rebuild used to silently wipe.
   // Each targets an exact sibling path under /workspaces — never a parent of
   // `.dev`'s bind mount above, so there's no bind-vs-volume mount ordering to
