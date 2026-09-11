@@ -19,7 +19,7 @@ before anything that could destroy the underlying Docker volumes.
 
 | Path | Repo | Role |
 | ---- | ---- | ---- |
-| `/workspaces/tuxery-dev` | `.dev` | Orchestration — canonical AGENTS.md, devcontainer |
+| `/workspaces/.dev` | `.dev` | Orchestration — canonical AGENTS.md, devcontainer |
 | `/workspaces/.github` | `.github` | Org-level GitHub config + reusable workflows |
 | `/workspaces/app` | `app` | The product: Qwik UI (`apps/web`) |
 | `/workspaces/catalog` | `catalog` | The data pipeline: source connectors, matching engine, rebuild scripts, persisted store |
@@ -53,7 +53,7 @@ handoff mechanics. `app`'s `pnpm start` is the fast Vite-only escape hatch (no w
 for pure UI iteration.
 
 **Commit scopes**: always read `scopes.json` at the active repo root before choosing a scope.
-Never invent a scope that isn't listed. Full type→emoji mapping: `/workspaces/tuxery-dev/commit-convention.json`.
+Never invent a scope that isn't listed. Full type→emoji mapping: `/workspaces/.dev/commit-convention.json`.
 Use `/commit` (Claude Code slash command) to auto-generate a message from staged changes.
 
 **`nub`**: it's an accelerator on top of pnpm (`nub run`, `nubx`), not a package manager
