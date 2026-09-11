@@ -119,8 +119,12 @@ chore(devcontainer): 🔧 add playwright-dev to devcontainer features
 Default policy — nuanced, not a hard rule: ask if a specific task calls for
 something different, but absent other instructions:
 
-1. **Branch** — work on a branch, never directly on `main`. Group related
-   changes on the same branch instead of opening a new one per small change.
+1. **Branch** — work on a branch, never directly on `main`. Create the branch
+   (`git checkout -b <name>`) *before* the first commit — never commit while
+   on `main` and rename the branch afterward, since that can leave the
+   branch's upstream tracking pointed at `origin/main` and let a later push
+   land directly on `main` unnoticed. Group related changes on the same
+   branch instead of opening a new one per small change.
 2. **Commit** — one commit per subject, Conventional Commits format mandatory
    (see Commit Messages below).
 3. **Push** — only once it looks safe to do so; a human review of the diff
