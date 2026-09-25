@@ -27,10 +27,12 @@
   "containerEnv": {
     "TUXERY_ORG": "tuxery",
     "TUXERY_REPOS": ".github .dev app catalog",
-    "GH_TOKEN": "${localEnv:GH_TOKEN_FOR_TUXERY}"
+    "GH_TOKEN": "${localEnv:GH_TOKEN_FOR_TUXERY}",
+    "GEMINI_API_KEY": "${localEnv:GOOGLE_AI_STUDIO_TUXERY_API_KEY}"
   },
   "remoteEnv": {
-    "GH_TOKEN": "${localEnv:GH_TOKEN_FOR_TUXERY}"
+    "GH_TOKEN": "${localEnv:GH_TOKEN_FOR_TUXERY}",
+    "GEMINI_API_KEY": "${localEnv:GOOGLE_AI_STUDIO_TUXERY_API_KEY}"
   },
   "features": {
     // ── Infrastructure ───────────────────────────────────────────────────────
