@@ -79,6 +79,12 @@ else
   fail "GH_TOKEN — missing (export GH_TOKEN_FOR_TUXERY on the host before reopening)"
 fi
 
+if [ -n "${GEMINI_API_KEY:-}" ]; then
+  ok "GEMINI_API_KEY — present"
+else
+  warn "GEMINI_API_KEY — missing (export GOOGLE_AI_STUDIO_TUXERY_API_KEY on the host before reopening; only needed for catalog's pnpm classify-llm)"
+fi
+
 # ── Workspace repos ───────────────────────────────────────────────────────────
 echo ""
 echo "── Workspace repos ──"
