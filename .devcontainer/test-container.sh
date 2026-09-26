@@ -85,6 +85,12 @@ else
   warn "GEMINI_API_KEY — missing (export GOOGLE_AI_STUDIO_TUXERY_API_KEY on the host before reopening; only needed for catalog's pnpm classify-llm)"
 fi
 
+if [ -n "${GROQ_API_KEY:-}" ]; then
+  ok "GROQ_API_KEY — present"
+else
+  warn "GROQ_API_KEY — missing (export GROQ_AI_TUXERY_TOKEN on the host before reopening; only needed for catalog's LLM classification)"
+fi
+
 # ── Workspace repos ───────────────────────────────────────────────────────────
 echo ""
 echo "── Workspace repos ──"
