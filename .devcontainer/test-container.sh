@@ -91,6 +91,12 @@ else
   warn "GROQ_API_KEY — missing (export GROQ_AI_TUXERY_TOKEN on the host before reopening; only needed for catalog's LLM classification)"
 fi
 
+if [ -n "${TURSO_API_TOKEN:-}" ]; then
+  ok "TURSO_API_TOKEN — present"
+else
+  warn "TURSO_API_TOKEN — missing (export TURSO_TUXERY_API_TOKEN on the host before reopening)"
+fi
+
 # ── Workspace repos ───────────────────────────────────────────────────────────
 echo ""
 echo "── Workspace repos ──"
