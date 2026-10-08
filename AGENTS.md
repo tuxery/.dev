@@ -50,7 +50,7 @@ codespace from.
 
 The container is self-contained; no host toolchain installation is needed.
 
-- Node.js 24, `pnpm` (via `helpers4/devcontainer/pnpm-store` + `typescript-dev`)
+- Node.js 26, `pnpm` (via `helpers4/devcontainer/pnpm-store` + `typescript-dev`)
 - `nub` — an accelerator (`nub run`, `nubx`) that delegates to pnpm; it is
   **not** a package manager replacement, pnpm remains the source of truth
   for dependencies and workspaces (`pnpm-workspace.yaml` in `app`)
