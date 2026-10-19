@@ -11,9 +11,9 @@
       "integrity": "sha256:8c0de46939b61958041700ee89e3493f3b2e4131a06dc46b4d9423427d06e5f6"
     },
     "ghcr.io/helpers4/devcontainer/auto-header:1": {
-      "version": "1.2.3",
-      "resolved": "ghcr.io/helpers4/devcontainer/auto-header@sha256:744258cd1b36fbd6c616e5e359f598ff1c64ce5da04cc2993fe9158544647e66",
-      "integrity": "sha256:744258cd1b36fbd6c616e5e359f598ff1c64ce5da04cc2993fe9158544647e66",
+      "version": "1.2.4",
+      "resolved": "ghcr.io/helpers4/devcontainer/auto-header@sha256:bdbd799a9977ab8950744d322c25b9f560d860a950556b5f865035d5936ae6a6",
+      "integrity": "sha256:bdbd799a9977ab8950744d322c25b9f560d860a950556b5f865035d5936ae6a6",
       "dependsOn": [
         "ghcr.io/helpers4/devcontainer/helpers4-common:1"
       ]
@@ -27,9 +27,12 @@
       ]
     },
     "ghcr.io/helpers4/devcontainer/cline-dev:1": {
-      "version": "1.0.1",
-      "resolved": "ghcr.io/helpers4/devcontainer/cline-dev@sha256:46248772ec60658cef1d00312df38a2e553b126dca5885d706a7be71ac1fdebb",
-      "integrity": "sha256:46248772ec60658cef1d00312df38a2e553b126dca5885d706a7be71ac1fdebb"
+      "version": "1.1.0",
+      "resolved": "ghcr.io/helpers4/devcontainer/cline-dev@sha256:d83d87eca9bbef8b86ffd6e95ab240de39b6c3055beca391f2d8e612da1d933b",
+      "integrity": "sha256:d83d87eca9bbef8b86ffd6e95ab240de39b6c3055beca391f2d8e612da1d933b",
+      "dependsOn": [
+        "ghcr.io/helpers4/devcontainer/helpers4-common:1"
+      ]
     },
     "ghcr.io/helpers4/devcontainer/essential-dev:1": {
       "version": "1.2.4",
@@ -53,14 +56,14 @@
       "integrity": "sha256:b036ea02856d332a234ed720d35d395f0d5f9ca92bdf0940f5e1111a7f936480"
     },
     "ghcr.io/helpers4/devcontainer/helpers4-common:1": {
-      "version": "1.2.2",
-      "resolved": "ghcr.io/helpers4/devcontainer/helpers4-common@sha256:65d3e504c66c1b1b0e56794846aa8537a6279c30cb812991782062cd8f2b3729",
-      "integrity": "sha256:65d3e504c66c1b1b0e56794846aa8537a6279c30cb812991782062cd8f2b3729"
+      "version": "1.2.3",
+      "resolved": "ghcr.io/helpers4/devcontainer/helpers4-common@sha256:c7a3699fd60b5da8702d7d74ce48c58a84dfea4ee1f0f5370e8ce901b875aa8c",
+      "integrity": "sha256:c7a3699fd60b5da8702d7d74ce48c58a84dfea4ee1f0f5370e8ce901b875aa8c"
     },
     "ghcr.io/helpers4/devcontainer/mistral-dev:1": {
-      "version": "1.3.1",
-      "resolved": "ghcr.io/helpers4/devcontainer/mistral-dev@sha256:643698e6b1f1f7da8af85f97ad114f719280909a43dd0894fb5ce3fb4b8cbfe2",
-      "integrity": "sha256:643698e6b1f1f7da8af85f97ad114f719280909a43dd0894fb5ce3fb4b8cbfe2",
+      "version": "1.3.2",
+      "resolved": "ghcr.io/helpers4/devcontainer/mistral-dev@sha256:156a057e5440ef3f31ac539088186a661d07fe676116ccbd28cbe02f021470fc",
+      "integrity": "sha256:156a057e5440ef3f31ac539088186a661d07fe676116ccbd28cbe02f021470fc",
       "dependsOn": [
         "ghcr.io/helpers4/devcontainer/helpers4-common:1"
       ]
@@ -83,9 +86,9 @@
       ]
     },
     "ghcr.io/helpers4/devcontainer/peon-ping:1": {
-      "version": "1.3.1",
-      "resolved": "ghcr.io/helpers4/devcontainer/peon-ping@sha256:eae95acfefe073547d1865cb668916b2ff91626135fbc96ed8cde6483d9aaea2",
-      "integrity": "sha256:eae95acfefe073547d1865cb668916b2ff91626135fbc96ed8cde6483d9aaea2",
+      "version": "1.3.2",
+      "resolved": "ghcr.io/helpers4/devcontainer/peon-ping@sha256:c68e6e60db88027be315a65cd3244f75e8cba7ff1cd683b0e68df41b3c19d5b0",
+      "integrity": "sha256:c68e6e60db88027be315a65cd3244f75e8cba7ff1cd683b0e68df41b3c19d5b0",
       "dependsOn": [
         "ghcr.io/helpers4/devcontainer/helpers4-common:1"
       ]
@@ -108,10 +111,10 @@
         "ghcr.io/helpers4/devcontainer/helpers4-common:1"
       ]
     },
-    "ghcr.io/helpers4/devcontainer/shell-history-per-project:1": {
-      "version": "1.2.3",
-      "resolved": "ghcr.io/helpers4/devcontainer/shell-history-per-project@sha256:c484a2d5035c8aa579cfc70d8f88e096647ded702c1eb3c852432c8a8a4f6b0a",
-      "integrity": "sha256:c484a2d5035c8aa579cfc70d8f88e096647ded702c1eb3c852432c8a8a4f6b0a",
+    "ghcr.io/helpers4/devcontainer/shell-history:1": {
+      "version": "1.0.0",
+      "resolved": "ghcr.io/helpers4/devcontainer/shell-history@sha256:e5fca9bf4df27171dac1e90ae1af8bc3885283f0bbf45396871a881b0ce48332",
+      "integrity": "sha256:e5fca9bf4df27171dac1e90ae1af8bc3885283f0bbf45396871a881b0ce48332",
       "dependsOn": [
         "ghcr.io/helpers4/devcontainer/helpers4-common:1"
       ]

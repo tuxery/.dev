@@ -45,7 +45,7 @@
     // local Docker Desktop/WSL2 host. On GitHub Codespaces there is no such
     // host — those mount sources resolve to nonexistent root-relative paths
     // and Docker refuses to create the container at all.
-    "ghcr.io/helpers4/devcontainer/shell-history-per-project:1": {},
+    "ghcr.io/helpers4/devcontainer/shell-history:1": {},
     "ghcr.io/helpers4/devcontainer/git-absorb:1": {},
     "ghcr.io/devcontainers/features/git-lfs:1": {},
     "ghcr.io/helpers4/devcontainer/essential-dev:1": {},
