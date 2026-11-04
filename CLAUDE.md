@@ -5,23 +5,20 @@ Full canonical rules (commit format, restrictions, language) live in
 
 ## Workspace layout
 
-All repos are cloned as siblings at `/workspaces/<name>` by
-`.devcontainer/setup-container.sh`'s `postCreateCommand` (not host bind-mounted
-— that's what makes the devcontainer work on GitHub Codespaces as well as
-local Docker Desktop/WSL2), and open together in `tuxery.code-workspace`. Each
-sibling other than `.dev` lives on its own named Docker volume (see
-`devcontainer.json`'s `mounts`), so a plain "Rebuild Container" keeps
-uncommitted/unpushed work; only a full teardown (`docker volume rm`, deleted
-Codespace) resets it to a fresh clone of `origin/main`. `.dev` itself is the
-one repo that's genuinely host bind-mounted, so it's unaffected either way.
-**This is a safety net, not a substitute for pushing** — commit and push
-before anything that could destroy the underlying Docker volumes.
+All repos are cloned as siblings at `/workspaces/<name>` by the `org-workspace` devcontainer
+feature (not host bind-mounted — that's what makes the devcontainer work on GitHub Codespaces as
+well as local Docker Desktop/WSL2), and open together in `tuxery.code-workspace`. The clones live in
+a named Docker volume, so a plain "Rebuild Container" keeps uncommitted/unpushed work; only a full
+teardown (`docker volume rm`, deleted Codespace) resets them to a fresh clone of `origin/main`.
+`.dev` itself is the one repo that's genuinely host bind-mounted, so it's unaffected either way.
+**This is a safety net, not a substitute for pushing** — commit and push before anything that
+could destroy the underlying Docker volumes.
 
 | Path | Repo | Role |
 | ---- | ---- | ---- |
-| `/workspaces/.dev` | `.dev` | Orchestration — canonical AGENTS.md, devcontainer |
+| `/workspaces/.dev` | `.dev` | This repo — orchestration |
 | `/workspaces/.github` | `.github` | Org-level GitHub config + reusable workflows |
-| `/workspaces/app` | `app` | The product: Qwik UI (`apps/web`) |
+| `/workspaces/app` | `app` | The product: Qwik UI |
 | `/workspaces/catalog` | `catalog` | The data pipeline: source connectors, matching engine, rebuild scripts, persisted store |
 
 ## Common commands (run from `app`)
@@ -76,4 +73,5 @@ how a narrow per-task carve-out (e.g. "push straight to `main` for this one fix"
 `~/.claude` is bind-mounted from a **per-devcontainer** volume and symlinked at
 every container start by `claude-dev` — isolated to this project, not shared
 with any other org's devcontainer. Memory, credentials, and settings survive
-rebuilds of this same devcontainer.
+rebuilds of this same devcontainer. Remote Control (`claude-rc status`) lets you start sessions
+in this devcontainer from claude.ai/code or the Claude mobile app.
