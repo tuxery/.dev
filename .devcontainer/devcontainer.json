@@ -3,14 +3,6 @@
   "image": "mcr.microsoft.com/devcontainers/typescript-node:26",
   "workspaceFolder": "/workspaces/.dev",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/.dev,type=bind,consistency=cached",
-  // Named volumes for what a container rebuild used to silently wipe (the
-  // sibling repos themselves are cloned by the org-workspace feature).
-  "mounts": [
-    // Keeps VS Code Server's installed extensions + their auth (Claude,
-    // Mistral, etc.) across rebuilds instead of re-installing/re-authing
-    // every time.
-    "source=tuxery-vscode-server,target=/home/node/.vscode-server,type=volume"
-  ],
   "containerEnv": {
     "GH_TOKEN": "${localEnv:GH_TOKEN_FOR_TUXERY}",
     "TURSO_API_TOKEN": "${localEnv:TURSO_TUXERY_API_TOKEN}",

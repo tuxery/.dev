@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Named-volume mount points come out root:root; hand VS Code Server's to node
-# so extensions can install. (/workspaces and the shell history volume are
-# handled by the org-workspace and shell-history features.)
-sudo chown node:node /home/node/.vscode-server 2>/dev/null || true
-
 # ── Turso CLI ────────────────────────────────────────────────────────────────────
 # No official/reliable devcontainer Feature exists for this (checked containers.dev
 # and the devcontainers/features registry — the one community "tursodb" Feature is
