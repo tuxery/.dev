@@ -22,9 +22,9 @@ tuxery/
 
 ## Quick start — GitHub Codespaces (recommended)
 
-Open a Codespace on `tuxery/.dev` directly from GitHub. `postCreateCommand`
-clones every sibling repo listed in `.devcontainer/devcontainer.json`'s
-`TUXERY_REPOS` into `/workspaces/<repo>` automatically — there's nothing to
+Open a Codespace on `tuxery/.dev` directly from GitHub. the `org-workspace`
+feature clones the org's repos (see `.devcontainer/devcontainer.json`)
+into `/workspaces/<repo>` automatically — there's nothing to
 pre-clone. This is the only devcontainer path this repo supports without any
 manual setup.
 
@@ -68,8 +68,8 @@ bash .devcontainer/test-container.sh
 ```
 
 It checks `gh` auth, the JavaScript toolchain (node/pnpm/nub), and that every
-sibling repo in `TUXERY_REPOS` was cloned successfully.
+expected sibling repo was cloned successfully.
 
 When a new repository is added to the organization, update
-`.devcontainer/devcontainer.json` (`TUXERY_REPOS`) and `tuxery.code-workspace`
-together.
+the `org-workspace` options in `.devcontainer/devcontainer.json` and
+`tuxery.code-workspace` together.

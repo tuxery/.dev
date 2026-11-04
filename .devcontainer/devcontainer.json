@@ -3,18 +3,9 @@
   "image": "mcr.microsoft.com/devcontainers/typescript-node:26",
   "workspaceFolder": "/workspaces/.dev",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/.dev,type=bind,consistency=cached",
-  // Named volumes for everything a container rebuild used to silently wipe.
-  // Each targets an exact sibling path under /workspaces — never a parent of
-  // `.dev`'s bind mount above, so there's no bind-vs-volume mount ordering to
-  // get right. Survives "Rebuild Container" (same Docker host/Codespace);
-  // only a full teardown (`docker volume rm`, deleted Codespace) resets them
-  // to a fresh clone via setup-container.sh. Fixed volume names assume one
-  // tuxery checkout per host, true for this solo-dev PoC today — revisit if
-  // that changes.
+  // Named volumes for what a container rebuild used to silently wipe (the
+  // sibling repos themselves are cloned by the org-workspace feature).
   "mounts": [
-    "source=tuxery-repo-app,target=/workspaces/app,type=volume",
-    "source=tuxery-repo-catalog,target=/workspaces/catalog,type=volume",
-    "source=tuxery-repo-github,target=/workspaces/.github,type=volume",
     // shell-history-per-project's whole point is surviving rebuilds — it
     // wrote into /workspaces/.shell-history without ever persisting the dir
     // itself, so history was silently lost on every rebuild same as the repos.
@@ -25,8 +16,6 @@
     "source=tuxery-vscode-server,target=/home/node/.vscode-server,type=volume"
   ],
   "containerEnv": {
-    "TUXERY_ORG": "tuxery",
-    "TUXERY_REPOS": ".github .dev app catalog",
     "GH_TOKEN": "${localEnv:GH_TOKEN_FOR_TUXERY}",
     "TURSO_API_TOKEN": "${localEnv:TURSO_TUXERY_API_TOKEN}",
     "GEMINI_API_KEY": "${localEnv:GOOGLE_AI_STUDIO_TUXERY_API_KEY}",
@@ -39,6 +28,9 @@
     "GROQ_API_KEY": "${localEnv:GROQ_AI_TUXERY_TOKEN}"
   },
   "features": {
+    "ghcr.io/helpers4/devcontainer/org-workspace:1": {
+      "autoDiscover": "public,private,internal,fork"
+    },
     // ── Infrastructure ───────────────────────────────────────────────────────
     // dotfiles-sync deliberately NOT included: it bind-mounts the host's
     // ~/.gitconfig, ~/.ssh, ~/.gnupg, ~/.npmrc into the container, assuming a
@@ -55,7 +47,10 @@
       "license": "AGPL-3.0-or-later"
     },
     // ── AI ───────────────────────────────────────────────────────────────────
-    "ghcr.io/helpers4/devcontainer/claude-dev:1": {},
+    "ghcr.io/helpers4/devcontainer/claude-dev:1": {
+      "remoteControl": true,
+      "remoteControlAutoTrust": true
+    },
     "ghcr.io/helpers4/devcontainer/mistral-dev:1": {},
     "ghcr.io/helpers4/devcontainer/cline-dev:1": {},
     "ghcr.io/helpers4/devcontainer/peon-ping:1": {
