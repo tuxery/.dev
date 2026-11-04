@@ -6,10 +6,6 @@
   // Named volumes for what a container rebuild used to silently wipe (the
   // sibling repos themselves are cloned by the org-workspace feature).
   "mounts": [
-    // shell-history-per-project's whole point is surviving rebuilds — it
-    // wrote into /workspaces/.shell-history without ever persisting the dir
-    // itself, so history was silently lost on every rebuild same as the repos.
-    "source=tuxery-shell-history,target=/workspaces/.shell-history,type=volume",
     // Keeps VS Code Server's installed extensions + their auth (Claude,
     // Mistral, etc.) across rebuilds instead of re-installing/re-authing
     // every time.
@@ -53,9 +49,6 @@
     },
     "ghcr.io/helpers4/devcontainer/mistral-dev:1": {},
     "ghcr.io/helpers4/devcontainer/cline-dev:1": {},
-    "ghcr.io/helpers4/devcontainer/peon-ping:1": {
-      "packs": "peasant_fr"
-    },
     // ── JavaScript / Qwik ────────────────────────────────────────────────────
     // The helpers4 features below depend on devcontainers/features/node, whose
     // default is "lts" (Node 24 until 26 is promoted in late October 2026): it
