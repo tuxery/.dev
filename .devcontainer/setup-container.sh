@@ -2,13 +2,11 @@
 set -euo pipefail
 
 # /workspaces itself, and every named-volume mount point declared in
-# devcontainer.json's "mounts" (the per-repo volumes, shell-history,
-# .vscode-server), come out root:root — only `.dev` (the bind-mounted
+# devcontainer.json's "mounts" (shell-history, .vscode-server), come out root:root — only `.dev` (the bind-mounted
 # workspaceFolder) inherits node ownership from the mount. Without this,
 # `node` gets "Permission denied" writing into any of them.
-sudo chown node:node /workspaces /workspaces/app /workspaces/catalog \
-  /workspaces/.github /workspaces/.shell-history /home/node/.vscode-server \
-  2>/dev/null || true
+sudo chown node:node /workspaces /workspaces/.shell-history \
+  /home/node/.vscode-server 2>/dev/null || true
 
 # ── Git commit signing (SSH format) ─────────────────────────────────────────────
 # dotfiles-sync no longer bind-mounts ~/.ssh from the host (see devcontainer.json),
@@ -34,40 +32,6 @@ if [ "$(git config --get gpg.format 2>/dev/null || true)" = "ssh" ]; then
     fi
   fi
 fi
-
-ORG="${TUXERY_ORG:-tuxery}"
-REPOS="${TUXERY_REPOS:-.github}"
-
-# ── Clone sibling repositories ──────────────────────────────────────────────────
-# Each sibling repo lives on its own named Docker volume (see devcontainer.json's
-# "mounts"), not a host bind mount. That's deliberate: bind-mounting `../<repo>`
-# from the host only works for a local Docker Desktop/WSL2 checkout where all
-# repos were pre-cloned side by side; it silently breaks GitHub Codespaces, which
-# only ever checks out the one repo you launched the codespace from. The volume
-# means a plain "Rebuild Container" keeps whatever was cloned/committed here —
-# this loop only actually clones on a fresh volume (first-ever run, or after a
-# full teardown: `docker volume rm`, deleted Codespace), via the
-# already-available check below.
-echo "Setting up ${ORG} workspace..."
-
-for repo in $REPOS; do
-  target="/workspaces/${repo}"
-
-  if [ -d "${target}/.git" ] || [ -n "$(ls -A "${target}" 2>/dev/null || true)" ]; then
-    echo "✓ ${repo}: already available"
-    continue
-  fi
-
-  echo "→ ${repo}: cloning sibling repository"
-  if command -v gh >/dev/null 2>&1; then
-    gh repo clone "${ORG}/${repo}" "${target}" || echo "! ${repo}: clone failed"
-  else
-    git clone "https://github.com/${ORG}/${repo}.git" "${target}" || echo "! ${repo}: clone failed"
-  fi
-done
-
-echo "✓ Workspace repos ready."
-echo ""
 
 # ── Turso CLI ────────────────────────────────────────────────────────────────────
 # No official/reliable devcontainer Feature exists for this (checked containers.dev

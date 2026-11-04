@@ -72,7 +72,7 @@ local TODO/roadmap file.
   runtime code here.
 - Add future repositories as siblings of `.dev/`, not nested inside it.
 - Update `tuxery.code-workspace` and `.devcontainer/devcontainer.json`
-  (both `TUXERY_REPOS` and the workspace `folders` list) together when a
+  (the `org-workspace` options and the workspace `folders` list) together when a
   new sibling repository is added.
 - Do not implement the product plan here unless the task is explicitly about shared tooling.
 - Track TODOs, backlog ideas, and feature status as cards in
