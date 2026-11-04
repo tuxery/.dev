@@ -32,16 +32,15 @@ and documentation only.
 
 ## Workspace structure
 
-All repositories are cloned as siblings under `/workspaces/` by
-`.devcontainer/setup-container.sh`'s `postCreateCommand` step — nothing is
-bind-mounted from the host. This is what makes the devcontainer work
-identically on a local checkout (Docker Desktop/WSL2) and on GitHub
-Codespaces, which only ever checks out the one repo you launch the
-codespace from.
+All repositories are cloned as siblings under `/workspaces/` by the `org-workspace` devcontainer
+feature (`.devcontainer/devcontainer.json`) — only `.dev` itself is bind-mounted from the host.
+This is what makes the devcontainer work identically on a local checkout (Docker Desktop/WSL2)
+and on GitHub Codespaces, which only ever checks out the one repo you launch the codespace from.
+`tuxery.code-workspace` is kept up to date by the same feature.
 
 | Path | Repo | Purpose |
 | --- | --- | --- |
-| `/workspaces/tuxery-dev` | `tuxery/.dev` | This repo — orchestration |
+| `/workspaces/.dev` | `tuxery/.dev` | This repo — orchestration |
 | `/workspaces/.github` | `tuxery/.github` | Org-level GitHub config + reusable workflows |
 | `/workspaces/app` | `tuxery/app` | The product: Qwik UI |
 | `/workspaces/catalog` | `tuxery/catalog` | The data pipeline: source connectors, matching engine, rebuild scripts, persisted store |
@@ -82,15 +81,25 @@ local TODO/roadmap file.
 ## Commit conventions
 
 Format: `type(scope): <emoji> description`
+([Conventional Commits](https://www.conventionalcommits.org/) + [gitmoji](https://gitmoji.dev))
 
-| Type | Emoji | When |
-| --- | --- | --- |
-| `feat` | ✨ | New feature or file |
-| `fix` | 🐛 | Correction |
-| `docs` | 📝 | Documentation only |
-| `chore` | 🔧 | Maintenance, config |
-| `ci` | 👷 | CI/CD |
-| `revert` | ⏪ | Reverts a previous commit |
+- Description ≤72 chars, lowercase, imperative mood, no trailing period
+- Exactly ONE emoji, between the colon and the description
+- Several logical changes → one dominant type in the subject, a bullet list in the body
+
+| Type | Emoji | Alternatives | When |
+| ---- | ----- | ------------ | ---- |
+| `feat` | ✨ | 🚸 UX · ♿️ a11y · 🌐 i18n · 💬 text | New feature |
+| `fix` | 🐛 | 🚑️ hotfix · 🔒️ security · 🩹 trivial · 🥅 errors · 🚨 warnings · ✏️ typo | Bug fix |
+| `docs` | 📝 | 💡 comments · 📄 license | Documentation |
+| `refactor` | ♻️ | 🎨 structure · 🔥 remove · ⚰️ dead code · 🚚 move/rename | Refactor |
+| `test` | ✅ | 🧪 failing · 💚 fix CI | Tests |
+| `chore` | 🔧 | 🙈 gitignore · 🔖 release · 📌 pin deps · 🩺 healthcheck | Maintenance |
+| `perf` | ⚡️ | | Performance |
+| `style` | 💄 | 🎨 code style | Style |
+| `ci` | 👷 | 💚 fix CI | CI/CD |
+| `build` | 📦️ | ➕ add · ➖ remove · ⬆️ upgrade · ⬇️ downgrade dep | Build |
+| `revert` | ⏪️ | | Revert |
 
 ### Allowed scopes
 
@@ -126,7 +135,7 @@ something different, but absent other instructions:
    land directly on `main` unnoticed. Group related changes on the same
    branch instead of opening a new one per small change.
 2. **Commit** — one commit per subject, Conventional Commits format mandatory
-   (see Commit Messages below).
+   (see Commit conventions above).
 3. **Push** — only once it looks safe to do so; a human review of the diff
    first is recommended for anything non-trivial. Ask if unsure.
 4. **Pull Request** — open one once pushed.
@@ -150,9 +159,9 @@ clone-based sibling setup. Deltas from that shape:
   of brig-id's tree/forest metaphor across its repo set, which doesn't apply
   here.
 - **`nub`** added as a pnpm accelerator (not present in either template org yet).
-- Sibling repos are cloned in `postCreateCommand`, never bind-mounted from
-  the host — brig-id/roots's fix for GitHub Codespaces support, applied here
-  from day one instead of retrofitted later.
+- Sibling repos are cloned by the `org-workspace` devcontainer feature, never bind-mounted from
+  the host — brig-id/roots's fix for GitHub Codespaces support, applied here from day one
+  instead of retrofitted later.
 - Roadmap/feature tracking uses a GitHub Project (org-level, cross-repo)
   instead of local Markdown files, per this org's own bootstrap instructions.
 - No Rust/cargo toolchain, no release-train git workflow — Tuxery is a
