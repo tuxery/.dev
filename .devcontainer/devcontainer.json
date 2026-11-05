@@ -42,7 +42,7 @@
     // default is "lts" (Node 24 until 26 is promoted in late October 2026): it
     // would install that nvm Node next to the image's own and keep it as the
     // default. Pin it to the major the image ships.
-    "ghcr.io/devcontainers/features/node:1": {
+    "ghcr.io/devcontainers/features/node:2": {
       "version": "26"
     },
     "ghcr.io/helpers4/devcontainer/typescript-dev:1": {},
