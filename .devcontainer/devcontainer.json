@@ -3,15 +3,14 @@
   "image": "mcr.microsoft.com/devcontainers/typescript-node:26",
   "workspaceFolder": "/workspaces/.dev",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/.dev,type=bind,consistency=cached",
-  // Secrets live in remoteEnv, not containerEnv: they are not baked into the container
-  // (docker run args / docker inspect) and a rotated token needs a reconnect, not a rebuild.
-  "remoteEnv": {
-    "GH_TOKEN": "${localEnv:GH_TOKEN_FOR_TUXERY}",
-    "TURSO_API_TOKEN": "${localEnv:TURSO_TUXERY_API_TOKEN}",
-    "GEMINI_API_KEY": "${localEnv:GOOGLE_AI_STUDIO_TUXERY_API_KEY}",
-    "GROQ_API_KEY": "${localEnv:GROQ_AI_TUXERY_TOKEN}"
-  },
   "features": {
+    // Secrets come from OpenBao (kv/shared/*, then kv/orgs/tuxery) into every process's env,
+    // VS Code included. Not in remoteEnv: `${localEnv:…}` is empty when VS Code attaches and
+    // would override them.
+    "ghcr.io/helpers4/devcontainer/openbao-env:1": {
+      "address": "https://bao.baxyz.dev:8200",
+      "paths": "shared/font-awesome,shared/web-awesome,orgs/tuxery"
+    },
     "ghcr.io/helpers4/devcontainer/org-workspace:1": {
       "autoDiscover": "public,private,internal,fork"
     },

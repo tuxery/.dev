@@ -28,16 +28,12 @@ into `/workspaces/<repo>` automatically — there's nothing to
 pre-clone. This is the only devcontainer path this repo supports without any
 manual setup.
 
-If you want `gh` to stay authenticated inside the container (needed to clone
-private/rate-limited resources and for `test-container.sh`'s checks), set a
-Codespaces secret or export a token on the host **named `GH_TOKEN_FOR_TUXERY`**
-before creating/reopening the codespace — not `GH_TOKEN` (that name is
-deliberately different so it doesn't collide with a token you may already have
-exported globally for other, unrelated projects):
-
-```bash
-export GH_TOKEN_FOR_TUXERY="$(gh auth token)"
-```
+Secrets (`GH_TOKEN`, …) come from OpenBao — `kv/orgs/tuxery`, plus `kv/shared/*` — through the
+[`openbao-env`](https://github.com/helpers4/devcontainer/tree/main/src/openbao-env) feature, into
+every process of the container (VS Code included). On fajro, `devc up tuxery` hands the
+container its credentials. In GitHub Codespaces, set the Codespaces secrets `BAO_ROLE_ID` and
+`BAO_SECRET_ID` (AppRole `tuxery`) and give the codespace Tailscale access: OpenBao is only
+reachable on the tailnet.
 
 ## Quick start — local (Docker Desktop / WSL2)
 
@@ -57,7 +53,7 @@ code .dev/tuxery.code-workspace
 
 Same as Codespaces: sibling repos are cloned automatically by
 `postCreateCommand`, nothing needs to be pre-cloned side by side on the host.
-Export `GH_TOKEN_FOR_TUXERY` first (see above) so `gh`/`git` can clone them.
+The secrets come from OpenBao (see above).
 
 ## Verifying the environment
 

@@ -76,25 +76,25 @@ echo "── Environment ──"
 if [ -n "${GH_TOKEN:-}" ]; then
   ok "GH_TOKEN — present"
 else
-  fail "GH_TOKEN — missing (export GH_TOKEN_FOR_TUXERY on the host before reopening)"
+  fail "GH_TOKEN — missing (not loaded from OpenBao, see openbao-env status)"
 fi
 
 if [ -n "${GEMINI_API_KEY:-}" ]; then
   ok "GEMINI_API_KEY — present"
 else
-  warn "GEMINI_API_KEY — missing (export GOOGLE_AI_STUDIO_TUXERY_API_KEY on the host before reopening; only needed for catalog's pnpm classify-llm)"
+  warn "GEMINI_API_KEY — missing (not loaded from OpenBao, see openbao-env status; only needed for catalog's pnpm classify-llm)"
 fi
 
 if [ -n "${GROQ_API_KEY:-}" ]; then
   ok "GROQ_API_KEY — present"
 else
-  warn "GROQ_API_KEY — missing (export GROQ_AI_TUXERY_TOKEN on the host before reopening; only needed for catalog's LLM classification)"
+  warn "GROQ_API_KEY — missing (not loaded from OpenBao, see openbao-env status; only needed for catalog's LLM classification)"
 fi
 
 if [ -n "${TURSO_API_TOKEN:-}" ]; then
   ok "TURSO_API_TOKEN — present"
 else
-  warn "TURSO_API_TOKEN — missing (export TURSO_TUXERY_API_TOKEN on the host before reopening)"
+  warn "TURSO_API_TOKEN — missing (not loaded from OpenBao, see openbao-env status)"
 fi
 
 # ── Workspace repos ───────────────────────────────────────────────────────────
