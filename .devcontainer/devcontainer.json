@@ -1,5 +1,8 @@
 {
   "name": "Tuxery",
+  // Stable machine name: Remote Control names the environment "<hostname>:<folder>", and the
+  // default hostname is the container id, which changes on every rebuild.
+  "runArgs": ["--hostname=tuxery"],
   "image": "mcr.microsoft.com/devcontainers/typescript-node:26",
   "workspaceFolder": "/workspaces/.dev",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/.dev,type=bind,consistency=cached",
