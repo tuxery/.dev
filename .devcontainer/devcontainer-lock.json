@@ -1,19 +1,19 @@
 {
   "features": {
     "ghcr.io/devcontainers/features/git-lfs:1": {
-      "version": "1.2.5",
-      "resolved": "ghcr.io/devcontainers/features/git-lfs@sha256:71c2b371cf12ab7fcec47cf17369c6f59156100dad9abf9e4c593049d789de72",
-      "integrity": "sha256:71c2b371cf12ab7fcec47cf17369c6f59156100dad9abf9e4c593049d789de72"
-    },
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "1.7.1",
-      "resolved": "ghcr.io/devcontainers/features/node@sha256:8c0de46939b61958041700ee89e3493f3b2e4131a06dc46b4d9423427d06e5f6",
-      "integrity": "sha256:8c0de46939b61958041700ee89e3493f3b2e4131a06dc46b4d9423427d06e5f6"
+      "version": "1.2.6",
+      "resolved": "ghcr.io/devcontainers/features/git-lfs@sha256:eb47c8dbb028872131e2edc2010d423219862b2362f339fc48682d0fcb2ad728",
+      "integrity": "sha256:eb47c8dbb028872131e2edc2010d423219862b2362f339fc48682d0fcb2ad728"
     },
     "ghcr.io/devcontainers/features/node:2": {
-      "version": "2.1.1",
-      "resolved": "ghcr.io/devcontainers/features/node@sha256:2a19d3b0b3879437637cfd292eb29fee0afcfbe6364e33db9afc4f80c5c1f956",
-      "integrity": "sha256:2a19d3b0b3879437637cfd292eb29fee0afcfbe6364e33db9afc4f80c5c1f956"
+      "version": "2.1.2",
+      "resolved": "ghcr.io/devcontainers/features/node@sha256:20ac718cc67e7999a9d3fbb8387f1a3a5d53ecbd41fe7c075ebadb8e9b431b17",
+      "integrity": "sha256:20ac718cc67e7999a9d3fbb8387f1a3a5d53ecbd41fe7c075ebadb8e9b431b17"
+    },
+    "ghcr.io/devcontainers/features/node:2": {
+      "version": "2.1.2",
+      "resolved": "ghcr.io/devcontainers/features/node@sha256:20ac718cc67e7999a9d3fbb8387f1a3a5d53ecbd41fe7c075ebadb8e9b431b17",
+      "integrity": "sha256:20ac718cc67e7999a9d3fbb8387f1a3a5d53ecbd41fe7c075ebadb8e9b431b17"
     },
     "ghcr.io/helpers4/devcontainer/auto-header:1": {
       "version": "1.2.4",
@@ -24,9 +24,9 @@
       ]
     },
     "ghcr.io/helpers4/devcontainer/claude-dev:1": {
-      "version": "1.4.2",
-      "resolved": "ghcr.io/helpers4/devcontainer/claude-dev@sha256:ac0d1c3a7e705a474477838f954e9ba111b7fca15b1f1a6448eacbf2b753ef8a",
-      "integrity": "sha256:ac0d1c3a7e705a474477838f954e9ba111b7fca15b1f1a6448eacbf2b753ef8a",
+      "version": "1.4.3",
+      "resolved": "ghcr.io/helpers4/devcontainer/claude-dev@sha256:c75b3501171e53dee9b526c0957dc2cc1c62395f6a9340ebc76881fc30c8afda",
+      "integrity": "sha256:c75b3501171e53dee9b526c0957dc2cc1c62395f6a9340ebc76881fc30c8afda",
       "dependsOn": [
         "ghcr.io/helpers4/devcontainer/helpers4-common:1"
       ]
