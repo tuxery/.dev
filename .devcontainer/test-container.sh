@@ -97,6 +97,37 @@ else
   warn "TURSO_API_TOKEN — missing (not loaded from OpenBao, see openbao-env status)"
 fi
 
+# Optional keys, each with what needs it. Never an unprefixed TURSO_DB_URL:
+# app's `pnpm dev` would then query a hosted database instead of the local one.
+optional_key() {
+  if [ -n "${!1:-}" ]; then
+    ok "$1 — present"
+  else
+    warn "$1 — missing (not loaded from OpenBao, see openbao-env status; only needed for $2)"
+  fi
+}
+optional_key PREVIEW_TURSO_DB_URL "catalog's pnpm seed --preview and turso-stats"
+optional_key PREVIEW_TURSO_DB_AUTH_TOKEN "catalog's pnpm seed --preview"
+optional_key PROD_TURSO_DB_URL "catalog's pnpm seed --prod and turso-stats"
+optional_key PROD_TURSO_DB_AUTH_TOKEN "catalog's pnpm seed --prod"
+optional_key CLOUDFLARE_API_TOKEN "app's wrangler and push-cloudflare-secrets.sh"
+optional_key CLOUDFLARE_ACCOUNT_ID "app's wrangler and push-cloudflare-secrets.sh"
+
+if [ -n "${TURSO_DB_URL:-}" ]; then
+  warn "TURSO_DB_URL — set: app's pnpm dev would query that database instead of catalog's local one (use the PREVIEW_/PROD_ prefixed names)"
+fi
+
+if [ -n "${FEEDBACK_GITHUB_TOKEN_EXPIRES:-}" ]; then
+  days_left=$(( ($(date -d "$FEEDBACK_GITHUB_TOKEN_EXPIRES" +%s) - $(date +%s)) / 86400 ))
+  if [ "$days_left" -lt 0 ]; then
+    fail "FEEDBACK_GITHUB_TOKEN — expired on $FEEDBACK_GITHUB_TOKEN_EXPIRES (tuxery.store/feedback can't file issues)"
+  elif [ "$days_left" -lt 21 ]; then
+    warn "FEEDBACK_GITHUB_TOKEN — expires in $days_left days ($FEEDBACK_GITHUB_TOKEN_EXPIRES): renew it, then update OpenBao and the tuxery-web Worker secret"
+  else
+    ok "FEEDBACK_GITHUB_TOKEN — valid until $FEEDBACK_GITHUB_TOKEN_EXPIRES"
+  fi
+fi
+
 # ── Workspace repos ───────────────────────────────────────────────────────────
 echo ""
 echo "── Workspace repos ──"
