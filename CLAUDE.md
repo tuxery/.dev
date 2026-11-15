@@ -42,12 +42,22 @@ local libSQL file (`catalog/.turso-state/`, gitignored, never under `app`) — o
 immediately; `catalog`'s `pnpm serve` then runs a local `turso dev` server in front of that file
 (foreground, its own terminal — a Workers isolate can't open a SQLite file directly); `app`'s
 `pnpm dev` connects to it and refuses to start if it isn't reachable, rather than silently
-serving an empty catalog. Pass `--remote` to `catalog`'s `pnpm seed` and `app`'s `pnpm dev` to
-use the real hosted Turso dev DB instead (no `pnpm serve` needed there) — credentials come from
-this repo's `.env` (`TURSO_DB_URL`/`TURSO_DB_AUTH_TOKEN`, gitignored, not `.env.sample`), shared
-by both repos rather than duplicated. See `catalog/AGENTS.md`'s "Local dev" section for the full
+serving an empty catalog. `pnpm dev` never talks to a hosted database; `catalog`'s
+`pnpm seed --preview`/`--prod` publishes to the hosted ones (no `pnpm serve` needed there). See `catalog/AGENTS.md`'s "Local dev" section for the full
 handoff mechanics. `app`'s `pnpm start` is the fast Vite-only escape hatch (no worker, no data)
 for pure UI iteration.
+
+**Secrets live in OpenBao**, not in files: `openbao-env` loads `kv/orgs/tuxery` (plus the
+`shared/*` paths in `devcontainer.json`) into every process's environment at container start;
+`openbao-env status` lists the key names. There is no `.env`/`.env.preview`/`.env.prod` any
+more. Hosted Turso credentials use the same prefixed names as the GitHub Actions secrets
+(`PREVIEW_TURSO_DB_URL`/`_AUTH_TOKEN`, `PROD_TURSO_DB_URL`/`_AUTH_TOKEN`), never a bare
+`TURSO_DB_URL`, which would point `app`'s `pnpm dev` at a hosted database. Cloudflare's
+(`CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID`) feed `wrangler` and `app`'s
+`scripts/push-cloudflare-secrets.sh`, which copies the Worker's secrets from there. Add or
+change a key with `bao kv patch -mount=kv orgs/tuxery KEY=…` (from a JSON on stdin for
+secrets), then `openbao-env refresh`. GitHub Actions and Cloudflare keep their own copies:
+update them too after a rotation.
 
 **Commit scopes**: always read `scopes.json` at the active repo root before choosing a scope.
 Never invent a scope that isn't listed. Full type→emoji mapping: `/workspaces/.dev/commit-convention.json`.
