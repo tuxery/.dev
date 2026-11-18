@@ -55,9 +55,9 @@ more. Hosted Turso credentials use the same prefixed names as the GitHub Actions
 `TURSO_DB_URL`, which would point `app`'s `pnpm dev` at a hosted database. Cloudflare's
 (`CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID`) feed `wrangler` and `app`'s
 `scripts/push-cloudflare-secrets.sh`, which copies the Worker's secrets from there. Add or
-change a key with `bao kv patch -mount=kv orgs/tuxery KEY=…` (from a JSON on stdin for
-secrets), then `openbao-env refresh`. GitHub Actions and Cloudflare keep their own copies:
-update them too after a rotation.
+change a key with a write token from `lar bao-grant tuxery` (AGENTS.md, "Secrets"):
+`bao kv patch -mount=kv orgs/tuxery KEY=-` with the value on stdin, then `openbao-env refresh`.
+GitHub Actions and Cloudflare keep their own copies: update them too after a rotation.
 
 **Commit scopes**: always read `scopes.json` at the active repo root before choosing a scope.
 Never invent a scope that isn't listed. Full type→emoji mapping: `/workspaces/.dev/commit-convention.json`.
